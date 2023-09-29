@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BuildingManager : MonoBehaviour
 {
+    public static BuildingManager instance { get; private set; }
     private Camera mainCamera;
-    private BuildingTypeSO buildingType;
+    private BuildingTypeSO activeBuildingType;
     private BuildingTypeListSO buildingTypeList;
     // Start is called before the first frame update
     private void Awake()
     {
+        instance = this;
         buildingTypeList = Resources.Load<BuildingTypeListSO>(typeof(BuildingTypeListSO).Name);
-        buildingType = buildingTypeList.buildingTypeList[0];
     }
     void Start()
     {
@@ -21,17 +23,12 @@ public class BuildingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            Instantiate(buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            buildingType = buildingTypeList.buildingTypeList[0];
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            buildingType = buildingTypeList.buildingTypeList[1];
+            if (activeBuildingType != null)
+            {
+                Instantiate(activeBuildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
+            }
         }
     }
     private Vector3 GetMouseWorldPosition()
@@ -39,5 +36,13 @@ public class BuildingManager : MonoBehaviour
         Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPosition.z = 0f;
         return mouseWorldPosition;
+    }
+    public void SetActiveBuildingType(BuildingTypeSO buildingType)
+    {
+        activeBuildingType = buildingType;
+    }
+    public BuildingTypeSO GetActiveBuildingType()
+    {
+        return activeBuildingType;
     }
 }

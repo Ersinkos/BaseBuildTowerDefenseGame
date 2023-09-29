@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa0af77dbceb7446b58d5166bfedea8, type: 3}
   m_Name: BuildingTypeListSO
   m_EditorClassIdentifier: 
-  buildingTypeList:
+  list:
   - {fileID: 11400000, guid: 7b68873ef52ee7d4d82bbcd70ae20413, type: 2}
   - {fileID: 11400000, guid: a48129e570e071b4b891c18686e1644c, type: 2}
+  - {fileID: 11400000, guid: c312bc98c4cacc34b9b24c5dcc037126, type: 2}
