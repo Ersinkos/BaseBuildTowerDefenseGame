@@ -47,3 +47,6 @@ TagManager:
   - name: Building
     uniqueID: 1190532479
     locked: 0
+  - name: Overlay
+    uniqueID: 4042946117
+    locked: 0
